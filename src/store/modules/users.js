@@ -1,4 +1,5 @@
 import userService from '../../services/userService';
+import { validateUser } from '../../utils/validation';
 
 const state = {
   users: [],
@@ -20,10 +21,18 @@ const actions = {
     commit('setUser', response.data);
   },
   async addUser({ commit }, user) {
+    const error = validateUser(user);
+    if (error) {
+      throw new Error(error);
+    }
     const response = await userService.addUser(user);
     commit('newUser', response.data);
   },
   async updateUser({ commit }, user) {
+    const error = validateUser(user);
+    if (error) {
+      throw new Error(error);
+    }
     const response = await userService.updateUser(user);
     commit('updateUser', response.data);
   },

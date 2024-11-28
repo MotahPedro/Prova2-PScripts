@@ -31,6 +31,14 @@ export default {
   },
   methods: {
     ...mapActions(['fetchUsers', 'addUser', 'deleteUser']),
+    async addUser() {
+      try {
+        await this.addUser(this.newUser);
+        this.newUser.name = '';
+      } catch (error) {
+        alert(error.message);
+      }
+    },
   },
   created() {
     this.fetchUsers();

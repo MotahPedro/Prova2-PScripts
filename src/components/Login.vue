@@ -24,6 +24,13 @@ export default {
   },
   methods: {
     ...mapActions(['login']),
+    async login() {
+      try {
+        await this.login(this.user);
+      } catch (error) {
+        alert(error.message);
+      }
+    },
   },
 };
 </script>
