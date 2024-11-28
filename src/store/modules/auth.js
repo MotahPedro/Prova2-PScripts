@@ -1,5 +1,6 @@
 import authService from '../../services/authService';
 import { validateLogin } from '../../utils/validation';
+import { handleError } from '../../utils/errorHandler';
 
 const state = {
   token: localStorage.getItem('token') || '',
@@ -13,14 +14,15 @@ const getters = {
 
 const actions = {
   async login({ commit }, user) {
-    const error = validateLogin(user);
-    if (error) {
-      throw new Error(error);
+    try {
+      validateLogin(user);
+      const response = await authService.login(user);
+      const token = response.data.token;
+      localStorage.setItem('token', token);
+      commit('authSuccess', token);
+    } catch (error) {
+      handleError(error);
     }
-    const response = await authService.login(user);
-    const token = response.data.token;
-    localStorage.setItem('token', token);
-    commit('authSuccess', token);
   },
   logout({ commit }) {
     localStorage.removeItem('token');

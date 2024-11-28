@@ -1,6 +1,9 @@
+import { ValidationError } from './errorHandler';
+import HttpStatus from 'http-status';
+
 export function validateUser(user) {
   if (!user.name || typeof user.name !== 'string') {
-    return 'Invalid name';
+    throw new ValidationError('Invalid name', HttpStatus.BAD_REQUEST);
   }
   // Adicione outras validações conforme necessário
   return null;
@@ -8,10 +11,10 @@ export function validateUser(user) {
 
 export function validateLogin(user) {
   if (!user.username || typeof user.username !== 'string') {
-    return 'Invalid username';
+    throw new ValidationError('Invalid username', HttpStatus.BAD_REQUEST);
   }
   if (!user.password || typeof user.password !== 'string') {
-    return 'Invalid password';
+    throw new ValidationError('Invalid password', HttpStatus.BAD_REQUEST);
   }
   return null;
 }
