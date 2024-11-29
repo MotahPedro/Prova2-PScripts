@@ -8,7 +8,7 @@
       <div class="col-md-4">
         <select class="form-control" v-model="selectedCategory" @change="filterByCategory">
           <option value="">All Categories</option>
-          <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
+          <option v-for="category in allCategories" :key="category" :value="category">{{ category }}</option>
         </select>
       </div>
       <div class="col-md-4">
@@ -64,9 +64,6 @@ export default {
     ...mapActions(['fetchProducts', 'fetchCategories', 'deleteProduct']),
     viewProduct(id) {
       this.$router.push(`/products/${id}`);
-    },
-    filterByCategory() {
-      this.fetchProducts();
     },
     sortProducts() {
       if (this.sortOrder === 'price') {

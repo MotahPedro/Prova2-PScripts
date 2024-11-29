@@ -4,10 +4,12 @@ import Overview from '../components/Overview.vue';
 import CartDetails from '../components/CartDetails.vue';
 import Carts from '../components/Carts.vue';
 import Login from '../components/Login.vue';
+import ProductDetails from '../components/ProductDetails.vue';
 
 const routes = [
   { path: '/', component: Overview },
   { path: '/products', component: Products },
+  { path: '/products/:id', component: ProductDetails },
   { path: '/cart/:id', component: CartDetails },
   { path: '/carts', component: Carts },
   { path: '/login', component: Login },
