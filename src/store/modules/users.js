@@ -1,6 +1,8 @@
-import userService from '../../services/userService';
+import axios from 'axios';
 import { validateUser } from '../../utils/validation';
 import { handleError } from '../../utils/errorHandler';
+
+const API_URL = 'https://fakestoreapi.com/users';
 
 const state = {
   users: [],
@@ -14,17 +16,18 @@ const getters = {
 
 const actions = {
   async fetchUsers({ commit }) {
-    const response = await userService.getUsers();
+    const response = await axios.get(API_URL);
     commit('setUsers', response.data);
   },
   async fetchUser({ commit }, id) {
-    const response = await userService.getUser(id);
+    const response = await axios.get(`${API_URL}/${id}`);
     commit('setUser', response.data);
+    return response; // Adicione esta linha para retornar os dados do usuário
   },
   async addUser({ commit }, user) {
     try {
       validateUser(user);
-      const response = await userService.addUser(user);
+      const response = await axios.post(API_URL, user);
       commit('newUser', response.data);
     } catch (error) {
       handleError(error);
@@ -33,14 +36,14 @@ const actions = {
   async updateUser({ commit }, user) {
     try {
       validateUser(user);
-      const response = await userService.updateUser(user);
+      const response = await axios.put(`${API_URL}/${user.id}`, user);
       commit('updateUser', response.data);
     } catch (error) {
       handleError(error);
     }
   },
   async deleteUser({ commit }, id) {
-    await userService.deleteUser(id);
+    await axios.delete(`${API_URL}/${id}`);
     commit('removeUser', id);
   },
 };

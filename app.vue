@@ -12,13 +12,13 @@
               <router-link class="nav-link" to="/">Overview</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/products">Products</router-link>
+              <router-link class="nav-link" to="/products">Produtos</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/carts">Carts</router-link>
+              <router-link class="nav-link" to="/carts">Carrinho</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/users">Users</router-link>
+              <router-link class="nav-link" to="/users">Usuários</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="/login">Login</router-link>
