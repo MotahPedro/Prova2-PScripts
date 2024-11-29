@@ -9,7 +9,7 @@
         <input type="number" v-model="filter.userId" class="form-control" placeholder="Filter by User ID">
       </div>
       <div class="col-md-4">
-        <button @click="applyFilter" class="btn btn-primary">Apply Filter</button>
+        <button @click="applyFilter" class="btn btn-primary w-100">Apply Filter</button>
       </div>
     </div>
     <div class="row">

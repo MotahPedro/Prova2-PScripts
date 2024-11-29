@@ -1,6 +1,6 @@
 <template>
-  <div class="auth-layout">
-    <header>
+  <div class="auth-layout container">
+    <header class="my-4">
       <h1>Auth Layout</h1>
     </header>
     <main>

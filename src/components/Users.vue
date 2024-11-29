@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <h1>Users</h1>
-    <ul>
-      <li v-for="user in users" :key="user.id">
+  <div class="container">
+    <h1 class="my-4">Users</h1>
+    <ul class="list-group mb-4">
+      <li class="list-group-item d-flex justify-content-between align-items-center" v-for="user in users" :key="user.id">
         {{ user.name }}
-        <button @click="deleteUser(user.id)">Delete</button>
+        <button class="btn btn-danger btn-sm" @click="deleteUser(user.id)">Delete</button>
       </li>
     </ul>
-    <form @submit.prevent="addUser">
-      <input v-model="newUser.name" placeholder="Name" />
-      <button type="submit">Add User</button>
+    <form @submit.prevent="addUser" class="d-flex">
+      <input v-model="newUser.name" class="form-control me-2" placeholder="Name" />
+      <button type="submit" class="btn btn-primary">Add User</button>
     </form>
   </div>
 </template>
