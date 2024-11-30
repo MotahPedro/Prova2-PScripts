@@ -37,8 +37,15 @@ const actions = {
     await axios.delete(`https://fakestoreapi.com/products/${id}`);
     commit('removeProduct', id);
   },
+  async addToCart({ commit }, { productId, quantity }) {
+    const response = await axios.post('https://fakestoreapi.com/carts', {
+      userId: 1, // assuming a static userId for simplicity
+      date: new Date().toISOString(),
+      products: [{ productId, quantity }]
+    });
+    commit('addToCart', response.data);
+  },
 };
-
 const mutations = {
   setProducts: (state, products) => (state.products = products),
   setCategories: (state, categories) => (state.categories = categories),
@@ -51,6 +58,9 @@ const mutations = {
     }
   },
   removeProduct: (state, id) => (state.products = state.products.filter(product => product.id !== id)),
+  addToCart: (state, cart) => {
+    // handle the cart state update if necessary
+  },
 };
 
 export default {

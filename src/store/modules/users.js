@@ -27,11 +27,12 @@ const actions = {
     try {
       const response = await axios.get(`${API_URL}/${id}`);
       commit('setUser', response.data);
-      return response; // Adicione esta linha para retornar os dados do usuário
+      return response; // Retorne a resposta em caso de sucesso
     } catch (error) {
       handleError(error);
+      return null; // Retorne null em caso de erro
     }
-  },
+  },  
   async addUser({ commit }, user) {
     try {
       validateUser(user);
@@ -78,7 +79,14 @@ const actions = {
 
 const mutations = {
   setUsers: (state, users) => (state.users = users),
-  setUser: (state, user) => (state.user = user),
+  setUser: (state, user) => {
+    if (user && user.name && user.address) {
+      state.user = user;
+    } else {
+      console.warn('Dados do usuário inválidos:', user);
+      state.user = null;
+    }
+  },  
   newUser: (state, user) => state.users.push(user),
   updateUser: (state, updatedUser) => {
     const index = state.users.findIndex(user => user.id === updatedUser.id);

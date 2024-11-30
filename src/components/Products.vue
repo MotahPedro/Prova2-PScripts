@@ -31,6 +31,7 @@
             <p class="card-text"><strong>R${{ product.price }}</strong></p>
             <button class="btn btn-primary" @click="viewProduct(product.id)">Visualizar</button>
             <button class="btn btn-danger" @click="deleteProduct(product.id)">Excluir</button>
+            <button class="btn btn-success" @click="addProductToCart(product.id)">Adicionar ao Carrinho</button>
           </div>
         </div>
       </div>
@@ -64,7 +65,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['fetchProducts', 'fetchCategories', 'deleteProduct']),
+    ...mapActions(['fetchProducts', 'fetchCategories', 'deleteProduct', 'addToCart']),
     viewProduct(id) {
       this.$router.push(`/products/${id}`);
     },
@@ -74,6 +75,9 @@ export default {
       } else if (this.sortOrder === 'rating') {
         this.allProducts.sort((a, b) => b.rating.rate - a.rating.rate);
       }
+    },
+    addProductToCart(productId) {
+      this.addToCart({ productId, quantity: 1 });
     },
   },
   created() {

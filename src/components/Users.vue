@@ -73,11 +73,16 @@ export default {
     async viewUser(id) {
       try {
         const response = await this.fetchUser(id);
-        this.selectedUser = response.data;
+        if (response && response.data) {
+          this.selectedUser = response.data;
+        } else {
+          throw new Error('Usuário não encontrado ou resposta inválida');
+        }
       } catch (error) {
-        alert(error.message);
+      alert(error.message || 'Erro ao buscar usuário');
       }
-    },
+  }
+
   },
   created() {
     this.fetchUsers();
