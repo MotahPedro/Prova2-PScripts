@@ -16,18 +16,46 @@ const getters = {
 
 const actions = {
   async fetchUsers({ commit }) {
-    const response = await axios.get(API_URL);
-    commit('setUsers', response.data);
+    try {
+      const response = await axios.get(API_URL);
+      commit('setUsers', response.data);
+    } catch (error) {
+      handleError(error);
+    }
   },
   async fetchUser({ commit }, id) {
-    const response = await axios.get(`${API_URL}/${id}`);
-    commit('setUser', response.data);
-    return response; // Adicione esta linha para retornar os dados do usuário
+    try {
+      const response = await axios.get(`${API_URL}/${id}`);
+      commit('setUser', response.data);
+      return response; // Adicione esta linha para retornar os dados do usuário
+    } catch (error) {
+      handleError(error);
+    }
   },
   async addUser({ commit }, user) {
     try {
       validateUser(user);
-      const response = await axios.post(API_URL, user);
+      const userData = {
+        email: user.email,
+        username: user.username,
+        password: user.password,
+        name: {
+          firstname: user.firstname,
+          lastname: user.lastname
+        },
+        address: {
+          geolocation: {
+            lat: '',
+            long: ''
+          },
+          city: '',
+          street: '',
+          number: '',
+          zipcode: ''
+        },
+        phone: user.phone
+      };
+      const response = await axios.post(API_URL, userData);
       commit('newUser', response.data);
     } catch (error) {
       handleError(error);

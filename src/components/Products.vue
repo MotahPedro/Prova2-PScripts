@@ -8,7 +8,10 @@
       <div class="col-md-4">
         <select class="form-control" v-model="selectedCategory" @change="filterByCategory">
           <option value="">Todas as Categorias</option>
-          <option v-for="category in allCategories" :key="category" :value="category">{{ category }}</option>
+          <option value="electronics">Eletrônicos</option>
+          <option value="jewelery">Joias</option>
+          <option value="men's clothing">Roupas Masculinas</option>
+          <option value="women's clothing">Roupas Femininas</option>
         </select>
       </div>
       <div class="col-md-4">

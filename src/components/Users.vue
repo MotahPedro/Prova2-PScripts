@@ -10,15 +10,20 @@
         </div>
       </li>
     </ul>
-    <form @submit.prevent="addUser" class="d-flex">
+    <form @submit.prevent="submitUser" class="d-flex">
       <input v-model="newUser.firstname" class="form-control me-2" placeholder="Nome" />
       <input v-model="newUser.lastname" class="form-control me-2" placeholder="Sobrenome" />
+      <input v-model="newUser.email" class="form-control me-2" placeholder="Email" />
+      <input v-model="newUser.username" class="form-control me-2" placeholder="Usuário" />
+      <input v-model="newUser.password" class="form-control me-2" placeholder="Senha" />
+      <input v-model="newUser.phone" class="form-control me-2" placeholder="Telefone" />
       <button type="submit" class="btn btn-primary">Adicionar Usuário</button>
     </form>
     <div v-if="selectedUser" class="mt-4">
       <h2>Detalhes do Usuário</h2>
       <p><strong>Nome:</strong> {{ selectedUser.name.firstname }} {{ selectedUser.name.lastname }}</p>
       <p><strong>Email:</strong> {{ selectedUser.email }}</p>
+      <p><strong>Usuário:</strong> {{ selectedUser.username }}</p>
       <p><strong>Telefone:</strong> {{ selectedUser.phone }}</p>
       <p><strong>Cidade:</strong> {{ selectedUser.address.city }}</p>
       <p><strong>Endereço:</strong> {{ selectedUser.address.street }}, {{ selectedUser.address.number }}</p>
@@ -37,6 +42,10 @@ export default {
       newUser: {
         firstname: '',
         lastname: '',
+        email: '',
+        username: '',
+        password: '',
+        phone: ''
       },
       selectedUser: null,
     };
@@ -46,11 +55,17 @@ export default {
   },
   methods: {
     ...mapActions(['fetchUsers', 'addUser', 'deleteUser', 'fetchUser']),
-    async addUser() {
+    async submitUser() {
       try {
         await this.addUser(this.newUser);
-        this.newUser.firstname = '';
-        this.newUser.lastname = '';
+        this.newUser = {
+          firstname: '',
+          lastname: '',
+          email: '',
+          username: '',
+          password: '',
+          phone: ''
+        };
       } catch (error) {
         alert(error.message);
       }
