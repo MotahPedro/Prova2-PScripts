@@ -35,7 +35,7 @@ const actions = {
   async updateCartItem({ commit }, { cartId, itemId, item }) {
     const response = await axios.put(`https://fakestoreapi.com/carts/${cartId}/items/${itemId}`, item);
     commit('updateCart', response.data);
-  },
+  },  
   async removeItemFromCart({ commit }, { cartId, itemId }) {
     await axios.delete(`https://fakestoreapi.com/carts/${cartId}/items/${itemId}`);
     commit('removeItem', { cartId, itemId });
